@@ -28,6 +28,23 @@ class UTip extends StatefulWidget {
 }
 
 class _UTipState extends State<UTip> {
+  int _personCount = 1;
+  // Methods
+  void increment() {
+    setState(() {
+      _personCount = _personCount + 1;
+    });
+  }
+
+  void decrement() {
+    setState(() {
+      if (_personCount > 0) {
+        _personCount--;
+      }
+      _personCount = _personCount--;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -40,14 +57,14 @@ class _UTipState extends State<UTip> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.white,
         title: const Text('UTip'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            padding: const EdgeInsets.all(18),
+            padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
                 color: theme.colorScheme.inversePrimary,
                 borderRadius: BorderRadius.circular(10)),
@@ -62,6 +79,55 @@ class _UTipState extends State<UTip> {
               ],
             ),
           ),
+          // form
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border:
+                      Border.all(color: theme.colorScheme.primary, width: 2)),
+              child: Column(
+                children: [
+                  TextField(
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        prefix: Icon(Icons.attach_money),
+                        labelText: 'Bill Amount'),
+                    keyboardType: TextInputType.number,
+                    onChanged: (String Value) {
+                      print("Value: $Value");
+                    },
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Split',
+                        style: theme.textTheme.titleMedium,
+                      ),
+                      Row(
+                        children: [
+                          IconButton(
+                              color: theme.colorScheme.primary,
+                              onPressed: decrement,
+                              icon: const Icon(Icons.remove)),
+                          Text(
+                            '$_personCount',
+                            style: theme.textTheme.titleMedium,
+                          ),
+                          IconButton(
+                              color: theme.colorScheme.primary,
+                              onPressed: increment,
+                              icon: const Icon(Icons.add)),
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
