@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Utip',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: const UTip(),
@@ -30,29 +30,37 @@ class UTip extends StatefulWidget {
 class _UTipState extends State<UTip> {
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+    // add style
+    final style = theme.textTheme.titleMedium!.copyWith();
+    color:
+    theme.colorScheme.onPrimary;
+    fontWeight:
+    FontWeight.bold;
+
     return Scaffold(
       appBar: AppBar(
-        shadowColor: Colors.amberAccent,
-        title: const Center(child: Text('LET US GET STARTED!')),
-        backgroundColor: Colors.blueGrey,
-        titleTextStyle: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-            fontStyle: FontStyle.normal),
+        backgroundColor: Colors.grey,
+        title: const Text('UTip'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
             padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+                color: theme.colorScheme.inversePrimary,
+                borderRadius: BorderRadius.circular(10)),
             child: Column(
               children: [
-                const Text('Total per person'),
-                const Text('\$ 22.0'),
+                Text('Total per person',
+                    style: style.copyWith(color: theme.colorScheme.onPrimary)),
+                Text('\$ 22.0',
+                    style: style.copyWith(
+                        color: theme.colorScheme.onPrimary,
+                        fontSize: theme.textTheme.displaySmall?.fontSize)),
               ],
             ),
-            decoration: BoxDecoration(
-                color: Colors.deepPurple,
-                borderRadius: BorderRadius.circular(10)),
           ),
         ],
       ),
